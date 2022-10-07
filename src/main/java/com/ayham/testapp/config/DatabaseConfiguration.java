@@ -1,5 +1,7 @@
 package com.ayham.testapp.config;
 
+import static com.ayham.testapp.config.Constants.SPRING_PROFILE_DEVELOPMENT;
+
 import java.sql.SQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +17,6 @@ import tech.jhipster.config.h2.H2ConfigurationHelper;
 
 @Configuration
 @EnableJpaRepositories({ "com.ayham.testapp.repository" })
-@EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement
 public class DatabaseConfiguration {
 
@@ -34,7 +35,7 @@ public class DatabaseConfiguration {
      * @throws SQLException if the server failed to start.
      */
     @Bean(initMethod = "start", destroyMethod = "stop")
-    @Profile(JHipsterConstants.SPRING_PROFILE_DEVELOPMENT)
+    @Profile(SPRING_PROFILE_DEVELOPMENT)
     public Object h2TCPServer() throws SQLException {
         String port = getValidPortForH2();
         log.debug("H2 database is available on port {}", port);
