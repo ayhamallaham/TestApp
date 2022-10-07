@@ -1,0 +1,49 @@
+entity MyUser {
+	username String required,
+    email String,
+    password String required
+}
+
+entity Product {
+	title String required,
+    description String,
+    status Status required
+}
+
+entity ProductPrice {
+	startDate Instant,
+    endDate Instant, 
+    price Long
+}
+
+entity Category {
+	title String
+}
+
+enum Status{
+	ACTIVE, INACTIVE
+}
+
+/////////////////////////////////////
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+    Category to Category{parent},
+    MyUser to Product{owner},
+    MyUser{like} to Product{user(username)},
+    //Category to Product
+    Product to ProductPrice
+}
+
+relationship ManyToOne {
+	Product{category} to Category
+}
+
+
+paginate Product with pagination
+paginate Category with pagination
+paginate MyUser with pagination
+
+// Set service options to all except few
+service all with serviceImpl
+
