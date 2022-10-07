@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
         }
         User userToLogin = existingUsers.get(0);
         if (passwordEncoder.matches(user.getPassword(), userToLogin.getPassword())) {
-            String token = base64Encoder.encodeToString(user.getId().toString().getBytes());
+            String token = base64Encoder.encodeToString(userToLogin.getId().toString().getBytes());
             userToLogin.setToken(token);
             partialUpdate(userToLogin);
             return token;
